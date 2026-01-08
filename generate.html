@@ -65,11 +65,14 @@
         .preview {
             margin: 30px 0;
             text-align: center;
+            width: 100%;
         }
         .preview iframe {
             border: none;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 100%;
         }
         .iframe-code {
             margin-top: 20px;
@@ -154,6 +157,13 @@
             <div class="form-group">
                 <label for="width">宽度（px）</label>
                 <input type="number" id="width" value="260" min="100">
+            </div>
+            <div class="form-group">
+                <label for="responsive">响应式宽度</label>
+                <select id="responsive">
+                    <option value="false">固定宽度</option>
+                    <option value="true" selected>自适应容器宽度</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="height">高度（px）</label>
@@ -259,6 +269,7 @@
             const themeColor = document.getElementById('themeColor').value;
             const width = document.getElementById('width').value;
             const height = document.getElementById('height').value;
+            const isResponsive = document.getElementById('responsive').value === 'true';
 
             const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/');
             const param = type === 'playlist' ? `playlist=${playlist}` : `id=${ids}`;
@@ -266,14 +277,27 @@
 
             const iframe = document.getElementById('preview-iframe');
             iframe.src = src;
-            iframe.width = width;
+            
+            if (isResponsive) {
+                iframe.width = '100%';
+                iframe.style.width = '100%';
+                iframe.style.maxWidth = '100%';
+                iframe.style.minWidth = width + 'px';
+                const iframeCode = `<iframe src="${src}" width="100%" height="${height}" style="border: none; border-radius: 0; background-color: transparent; max-width: 100%; min-width: ${width}px;" frameborder="0"></iframe>`;
+                document.getElementById('iframe-code').value = iframeCode;
+            } else {
+                iframe.width = width;
+                iframe.style.width = width + 'px';
+                iframe.style.maxWidth = 'none';
+                iframe.style.minWidth = 'auto';
+                const iframeCode = `<iframe src="${src}" width="${width}" height="${height}" style="border: none; border-radius: 0; background-color: transparent;" frameborder="0"></iframe>`;
+                document.getElementById('iframe-code').value = iframeCode;
+            }
+            
             iframe.height = height;
             iframe.style.border = 'none';
             iframe.style.borderRadius = '0';
             iframe.style.backgroundColor = 'transparent';
-
-            const iframeCode = `<iframe src="${src}" width="${width}" height="${height}" style="border: none; border-radius: 0; background-color: transparent;" frameborder="0"></iframe>`;
-            document.getElementById('iframe-code').value = iframeCode;
         }
 
         async function searchMusic() {
@@ -342,7 +366,7 @@
         }
 
         function initEventListeners() {
-            const inputs = ['type', 'theme', 'themeColor', 'width', 'height', 'playlist', 'ids'];
+            const inputs = ['type', 'theme', 'themeColor', 'width', 'height', 'playlist', 'ids', 'responsive'];
             inputs.forEach(id => {
                 const element = document.getElementById(id);
                 if (element) {
