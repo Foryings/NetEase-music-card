@@ -1,14 +1,14 @@
 {
   "version": 2,
   "name": "netease-music-card",
-  "routes": [
+  "rewrites": [
     {
-      "src": "/",
-      "dest": "/index.html"
+      "source": "/",
+      "destination": "/index.html"
     },
     {
-      "src": "/generate",
-      "dest": "/generate.html"
+      "source": "/generate",
+      "destination": "/generate.html"
     }
   ],
   "headers": [
