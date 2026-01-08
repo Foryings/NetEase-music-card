@@ -61,13 +61,13 @@ if (theme.toLowerCase() === 'light') {
     document.documentElement.style.setProperty('--text-color', '#000000');
     document.documentElement.style.setProperty('--card-bg-color', '#f0f0f0');
     document.documentElement.style.setProperty('--slider-bg-color', '#a0a0a0');
-    document.documentElement.style.setProperty('--overlay-color', 'rgba(255, 255, 255, 0.5)');
+    document.documentElement.style.setProperty('--overlay-color', 'rgba(255, 255, 255, 0)');
 } else {
     document.documentElement.style.setProperty('--bg-color', '#191414');
     document.documentElement.style.setProperty('--text-color', '#ffffff');
     document.documentElement.style.setProperty('--card-bg-color', '#151515');
     document.documentElement.style.setProperty('--slider-bg-color', '#5e5e5e');
-    document.documentElement.style.setProperty('--overlay-color', 'rgba(0, 0, 0, 0.5)');
+    document.documentElement.style.setProperty('--overlay-color', 'rgba(0, 0, 0, 0)');
 }
 
 audio.volume = 1.0;
