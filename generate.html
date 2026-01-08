@@ -260,7 +260,7 @@
             const width = document.getElementById('width').value;
             const height = document.getElementById('height').value;
 
-            const baseUrl = 'https://enamscard.pages.dev/';
+            const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/');
             const param = type === 'playlist' ? `playlist=${playlist}` : `id=${ids}`;
             const src = `${baseUrl}?${param}&theme=${theme}&themeColor=${encodeURIComponent(themeColor)}`;
 

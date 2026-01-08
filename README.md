@@ -6,9 +6,9 @@
 
 支持亮色\暗色主题，支持自定义主题色，配置简单
 
-配置页面：https://enamscard.pages.dev/generate
+配置页面：部署后访问 /generate
 
-播放器：https://enamscard.pages.dev/?playlist=6821530729&theme=dark&themeColor=%23008eff
+播放器：部署后访问 /?playlist=6821530729&theme=dark&themeColor=%23008eff
 
 请求参数：
 
