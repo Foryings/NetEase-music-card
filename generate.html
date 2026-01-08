@@ -28,8 +28,15 @@
             grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
+        .form-grid .form-group:nth-child(9),
+        .form-grid .form-group:nth-child(10) {
+            grid-column: 1 / -1;
+        }
         .form-group {
             margin-bottom: 20px;
+        }
+        .form-group small {
+            line-height: 1.4;
         }
         label {
             display: block;
@@ -66,13 +73,15 @@
             margin: 30px 0;
             text-align: center;
             width: 100%;
+            overflow: hidden;
         }
         .preview iframe {
             border: none;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            width: 100%;
             max-width: 100%;
+            display: block;
+            margin: 0 auto;
         }
         .iframe-code {
             margin-top: 20px;
@@ -164,6 +173,7 @@
                     <option value="false">固定宽度</option>
                     <option value="true" selected>自适应容器宽度</option>
                 </select>
+                <small style="color: #666; font-size: 12px; display: block; margin-top: 5px;">自适应容器宽度将在WordPress中占满可用空间，同时保持最小宽度</small>
             </div>
             <div class="form-group">
                 <label for="height">高度（px）</label>
@@ -278,11 +288,16 @@
             const iframe = document.getElementById('preview-iframe');
             iframe.src = src;
             
+            // 设置预览容器的宽度，以便更好地展示响应式效果
+            const previewContainer = document.querySelector('.preview');
             if (isResponsive) {
                 iframe.width = '100%';
                 iframe.style.width = '100%';
                 iframe.style.maxWidth = '100%';
                 iframe.style.minWidth = width + 'px';
+                // 设置预览容器宽度，模拟WordPress中的容器
+                previewContainer.style.maxWidth = width + 'px';
+                previewContainer.style.margin = '30px auto';
                 const iframeCode = `<iframe src="${src}" width="100%" height="${height}" style="border: none; border-radius: 0; background-color: transparent; max-width: 100%; min-width: ${width}px;" frameborder="0"></iframe>`;
                 document.getElementById('iframe-code').value = iframeCode;
             } else {
@@ -290,6 +305,8 @@
                 iframe.style.width = width + 'px';
                 iframe.style.maxWidth = 'none';
                 iframe.style.minWidth = 'auto';
+                previewContainer.style.maxWidth = 'none';
+                previewContainer.style.margin = '30px 0';
                 const iframeCode = `<iframe src="${src}" width="${width}" height="${height}" style="border: none; border-radius: 0; background-color: transparent;" frameborder="0"></iframe>`;
                 document.getElementById('iframe-code').value = iframeCode;
             }
